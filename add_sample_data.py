@@ -10,7 +10,7 @@ import tempfile
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grocery_shop.settings')
 django.setup()
 
-from products.models import Category, Product
+from products.models import Category, Product 
 from django.utils.text import slugify
 
 def download_image(url, filename):
