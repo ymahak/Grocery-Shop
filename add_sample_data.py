@@ -1,6 +1,6 @@
 import os
 import django
-import requests
+import requests # type: ignore
 from django.core.files import File
 from decimal import Decimal
 import urllib.parse
