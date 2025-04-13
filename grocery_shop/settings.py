@@ -12,7 +12,7 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
 
 
-ALLOWED_HOSTS = ['grocery-shop-9.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 
