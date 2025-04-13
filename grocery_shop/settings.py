@@ -11,7 +11,7 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 DEBUG = True
 
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = ['grocery-shop-8.onrender.com']
 
 
 
