@@ -54,3 +54,7 @@ python manage.py runserver
 ## Admin Panel
 
 Access the admin panel at http://127.0.0.1:8000/admin/ using your superuser credentials to manage products and categories. 
+
+
+
+created by mahak
