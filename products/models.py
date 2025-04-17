@@ -5,7 +5,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='categories/', blank=True)
+    image_url = models.URLField(max_length=500, blank=True, default='https://via.placeholder.com/800x600.png?text=Category+Image')
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -22,7 +22,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='products/')
+    image_url = models.URLField(max_length=500, default='https://via.placeholder.com/800x600.png?text=Product+Image')
     stock = models.PositiveIntegerField(default=0)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
