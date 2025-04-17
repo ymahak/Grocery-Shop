@@ -115,12 +115,16 @@
 
     .product-card {
         height: 100%;
+        width: 100%;
+        max-width: 300px;
         border: none;
         border-radius: 1rem;
         overflow: hidden;
         background-color: var(--card-bg);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         box-shadow: 0 4px 16px var(--shadow);
+        display: flex;
+        flex-direction: column;
     }
 
     .product-card:hover {
@@ -129,15 +133,17 @@
     }
 
     .product-image-container {
-        height: 200px;
+        position: relative;
+        width: 100%;
+        padding-top: 75%; /* 4:3 Aspect Ratio */
         overflow: hidden;
         background-color: #f0f8f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .product-image-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -149,20 +155,26 @@
     }
 
     .card-body {
-        padding: 1rem;
+        padding: 1.5rem;
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
     }
 
     .card-title {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         font-weight: 700;
         color: var(--text-dark);
+        margin-bottom: 0.75rem;
+        text-align: center;
     }
 
     .card-text {
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        color: #666;
+        text-align: center;
+        flex-grow: 1;
     }
 
     .price {
@@ -175,11 +187,16 @@
     .btn-primary {
         background-color: var(--primary-color);
         border: none;
-        transition: background 0.3s ease;
+        transition: all 0.3s ease;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        width: 100%;
+        text-align: center;
     }
 
     .btn-primary:hover {
         background-color: var(--secondary-color);
+        transform: translateY(-2px);
     }
 
     /* Animations */
@@ -196,6 +213,26 @@
         50% {
             transform: scale(1.1);
             opacity: 0.2;
+        }
+    }
+
+    /* Categories Grid Layout */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+        justify-items: center;
+    }
+
+    @media (max-width: 768px) {
+        .categories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            max-width: 100%;
         }
     }
 </style>
@@ -224,25 +261,23 @@
 
 <!-- Categories Section -->
 <div class="container">
-    <div class="row mb-4">
+    <div class="row mb-5">
         <div class="col-12">
             <h2 class="section-header" id="categories">Categories</h2>
-            <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="categories-grid">
                 {% for category in categories %}
-                <div class="col">
-                    <div class="card h-100 product-card">
-                        <div class="product-image-container">
-                            {% if category.image_url %}
-                            <img src="{{ category.image_url }}" class="card-img-top" alt="{{ category.name }}">
-                            {% else %}
-                            <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No image available">
-                            {% endif %}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ category.name }}</h5>
-                            <p class="card-text">{{ category.description|truncatewords:20 }}</p>
-                            <a href="{{ category.get_absolute_url }}" class="btn btn-primary mt-auto">View Products</a>
-                        </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        {% if category.image_url %}
+                        <img src="{{ category.image_url }}" class="card-img-top" alt="{{ category.name }}">
+                        {% else %}
+                        <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No image available">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        <p class="card-text">{{ category.description|truncatewords:20 }}</p>
+                        <a href="{{ category.get_absolute_url }}" class="btn btn-primary">View Products</a>
                     </div>
                 </div>
                 {% endfor %}
