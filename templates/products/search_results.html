@@ -8,6 +8,8 @@
     .product-card {
         height: 100%;
         transition: transform 0.2s;
+        display: flex;
+        flex-direction: column;
     }
     .product-card:hover {
         transform: translateY(-5px);
@@ -15,16 +17,53 @@
     }
     .product-image-container {
         height: 200px;
+        width: 100%;
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: #f8f9fa;
+        position: relative;
     }
     .product-image-container img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        height: 2.4rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        height: 3rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .price {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #28a745;
+        margin-bottom: 1rem;
+    }
+    .btn-container {
+        margin-top: auto;
     }
 </style>
 
@@ -60,8 +99,8 @@
         <div class="col">
             <div class="card h-100 product-card">
                 <div class="product-image-container">
-                    {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% if product.image_url %}
+                    <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
                     {% else %}
                     <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No image available">
                     {% endif %}
@@ -99,21 +138,25 @@
     <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
             {% endif %}
 
             {% for num in page_obj.paginator.page_range %}
-                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}page={{ num }}">{{ num }}</a>
-                </li>
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">{{ num }}</a>
+            </li>
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}page={{ page_obj.next_page_number }}">Next &raquo;</a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
             {% endif %}
         </ul>
     </nav>
