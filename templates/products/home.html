@@ -216,8 +216,7 @@
                 </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
-                <img src="{% static 'images/heroo.png' %}" alt="Fresh Groceries" class="hero-image">
-
+                <img src="https://imgs.search.brave.com/QiBTPkIwcxV3zL3GJEnYoS62hPQVbTT0JG7cl5jg8t8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Hcm9j/ZXJ5LVBORy5wbmc" alt="Fresh Groceries" class="hero-image">
             </div>
         </div>
     </div>
@@ -233,8 +232,8 @@
                 <div class="col">
                     <div class="card h-100 product-card">
                         <div class="product-image-container">
-                            {% if category.image %}
-                            <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }}">
+                            {% if category.image_url %}
+                            <img src="{{ category.image_url }}" class="card-img-top" alt="{{ category.name }}">
                             {% else %}
                             <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No image available">
                             {% endif %}
@@ -260,8 +259,8 @@
                 <div class="col">
                     <div class="card h-100 product-card">
                         <div class="product-image-container">
-                            {% if product.image %}
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            {% if product.image_url %}
+                            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
                             {% else %}
                             <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No image available">
                             {% endif %}
